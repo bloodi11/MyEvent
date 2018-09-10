@@ -4,6 +4,7 @@
 #include <mutex>
 #include <iostream>
 #include <memory>
+#include <mutex>
  
 class MyEvent {
 private:
@@ -13,13 +14,14 @@ public:
 	MyEvent();
 	MyEvent(std::function<void()> _function);
 
-	void instructions();
+	void instructions(std::mutex& _mutex);
 };
 
 class MyEventManager {
 private:
 	std::vector<MyEvent> eventData;
 	std::vector<std::thread> threadData;
+	std::mutex mutex;
 
 
 public:

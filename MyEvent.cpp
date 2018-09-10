@@ -2,6 +2,7 @@
 #include "MyEvent.h"
 
 
+
 MyEvent::MyEvent() : MyEvent([]() {}) {
 	
 }
@@ -11,12 +12,12 @@ MyEvent::MyEvent(std::function<void()> _function) {
 }
 
 
-void MyEvent::instructions() {
-	std::mutex m;
+void MyEvent::instructions(std::mutex& _mutex) {
 	while (1) {
-		m.lock();
+		_mutex.lock();
 		function();
-		m.unlock();
+		_mutex.unlock();
+		std::this_thread::sleep_for(std::chrono::milliseconds(1));
 	}
 }
 
@@ -37,10 +38,10 @@ void MyEventManager::addVectorEvent(std::vector<MyEvent> _eventVector) {
 
 void MyEventManager::start() {
 	for (auto& e : eventData) {
-		std::thread _thread(&MyEvent::instructions, e);
+		std::thread _thread(&MyEvent::instructions, e, std::ref(mutex));
 		threadData.push_back(std::move(_thread));
 	}
-	for (auto&& t : threadData) {
+	for (auto& t : threadData) {
 		t.detach();
 	}
 }
