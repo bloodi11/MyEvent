@@ -4,7 +4,6 @@
 #include <mutex>
 #include <iostream>
 #include <memory>
-#include <mutex>
  
 class MyEvent {
 private:
