@@ -27,6 +27,6 @@ public:
 	MyEventManager();
 
 	void addEvent(MyEvent _event);
-	void addVectorEvent(std::vector<MyEvent> _eventVector);
+	void setVectorEvent(std::vector<MyEvent> _eventVector);
 	void start();
 };
