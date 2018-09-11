@@ -31,7 +31,7 @@ void MyEventManager::addEvent(MyEvent _event) {
 	eventData.push_back(_event);
 }
 
-void MyEventManager::addVectorEvent(std::vector<MyEvent> _eventVector) {
+void MyEventManager::setVectorEvent(std::vector<MyEvent> _eventVector) {
 	eventData = _eventVector;
 }
 
